@@ -41,7 +41,10 @@ Route::group(['prefix' => 'page'], function () {
 
 Route::group(['prefix' => 'admin','middleware'=>['auth.roles:admin,manager']], function () {
     Route::get('manage-agent', function () {
-        return view('admin.a gent');
+        return view('admin.agent');
+    });
+    Route::get('manage-product', function () {
+        return view('admin.product');
     });
 
 });

@@ -91,6 +91,13 @@
                                                 <li><a href="{{ URL::to('/admin/manage-agent') }}">Danh sách Agent</a></li>
                                             </ul>
                                         </li>
+                                        <li class="nav-parent">
+
+                                            <a href="#"><i><img src=""></i> <span class="nav-label">Quản lý Product</span></a>
+                                            <ul class="children nav">
+                                                <li><a href="{{ URL::to('/admin/manage-product') }}">Danh sách product</a></li>
+                                            </ul>
+                                        </li>
 
 
 

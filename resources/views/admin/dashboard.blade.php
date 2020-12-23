@@ -93,9 +93,9 @@
                                         </li>
                                         <li class="nav-parent">
 
-                                            <a href="#"><i><img src=""></i> <span class="nav-label">Quản lý Product</span></a>
+                                            <a href="#"><i><img src=""></i> <span class="nav-label">Quản lý store</span></a>
                                             <ul class="children nav">
-                                                <li><a href="{{ URL::to('/admin/manage-product') }}">Danh sách product</a></li>
+                                                <li><a href="{{ URL::to('/admin/manage-store') }}">Danh sách store</a></li>
                                             </ul>
                                         </li>
 

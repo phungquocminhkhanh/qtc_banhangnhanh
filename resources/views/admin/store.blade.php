@@ -27,7 +27,6 @@
             <div class="col-sm-8">
                <div class="inqbox">
                   <div class="inqbox-content">
-
                            <span class="text-muted small pull-right">Last modification: <i class="fa fa-clock-o"></i> 2:10 pm - 12.06.2015</span>
                            <h2>Agent</h2>
                            <div class="input-group">

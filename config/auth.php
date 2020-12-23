@@ -72,7 +72,7 @@ return [
         ],
         'customuser' => [
             'driver' => 'eloquent',
-            'model' => App\NhanVien::class,
+            'model' => App\account_acount::class,
         ],
 
         // 'users' => [

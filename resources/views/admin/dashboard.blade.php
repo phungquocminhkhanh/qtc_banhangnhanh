@@ -88,14 +88,14 @@
 
                                             <a href="#"><i><img src=""></i> <span class="nav-label">Quản lý Agent</span></a>
                                             <ul class="children nav">
-                                                <li><a href="{{ URL::to('/admin/manage-agent') }}">Danh sách Agent</a></li>
+                                                <li><a href="{{ URL::to('admin/manage-agent') }}">Danh sách Agent</a></li>
                                             </ul>
                                         </li>
                                         <li class="nav-parent">
 
                                             <a href="#"><i><img src=""></i> <span class="nav-label">Quản lý store</span></a>
                                             <ul class="children nav">
-                                                <li><a href="{{ URL::to('/admin/manage-store') }}">Danh sách store</a></li>
+                                                <li><a href="{{ URL::to('admin/manage-store') }}">Danh sách store</a></li>
                                             </ul>
                                         </li>
 

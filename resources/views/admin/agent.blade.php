@@ -29,7 +29,7 @@
                 <div class="inqbox-title">
                     <h5>All projects assigned to this account</h5>
                     <div class="inqbox-tools">
-                        <button id="create_account_customer" onclick="hhh()" class="btn btn-primary btn-xs">Thêm người dùng</button>
+                        <button id="create_account_customer"  class="btn btn-primary btn-xs">Thêm người dùng</button>
                     </div>
                 </div>
                 <div class="inqbox-content">

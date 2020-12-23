@@ -38,7 +38,12 @@ Route::group(['prefix' => 'page'], function () {
     Route::get('login/google/callback', 'loginController@google_callback');
 
 });
-
+// Route::get('manage-agent', function () {
+//     return view('admin.agent');
+// });
+// Route::get('manage-store', function () {
+//     return view('admin.store');
+// });
 Route::group(['prefix' => 'admin'   ], function () {
     Route::get('manage-agent', function () {
         return view('admin.agent');

@@ -41,7 +41,7 @@
                                     </a>
                                 </div>
                                 <div class="media-body profile-name" style="white-space: nowrap;">
-                                    <h4 class="media-heading">Cristiano Khánh<a data-toggle="collapse" data-target="#loguserinfo" class="pull-right"><i class="fa fa-angle-down"></i></a></h4>
+                                    <h5 class="media-heading"><?php $ten = Auth::user()->account_username;if($ten) echo $ten; ?><a data-toggle="collapse" data-target="#loguserinfo" class="pull-right"><i class="fa fa-angle-down"></i></a></h5>
                                     <span>Software Engineer</span>
                                 </div>
                             </div>
@@ -93,9 +93,9 @@
                                         </li>
                                         <li class="nav-parent">
 
-                                            <a href="#"><i><img src=""></i> <span class="nav-label">Quản lý store</span></a>
+                                            <a href="#"><i><img src=""></i> <span class="nav-label">Quản lý Tài Khoản</span></a>
                                             <ul class="children nav">
-                                                <li><a href="{{ URL::to('admin/manage-store') }}">Danh sách store</a></li>
+                                                <li><a href="{{ URL::to('admin/manage-account') }}">Danh sách Tài khoản</a></li>
                                             </ul>
                                         </li>
 

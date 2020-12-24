@@ -30,26 +30,18 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 });
 
-Route::get('view-manage-agent','adminController@view_manage_agent');
-
 Route::group(['prefix' => 'page'], function () {
     Route::get('login', 'loginController@login');
-    Route::get('login/google', 'loginController@login_google');
-    Route::get('login/google/callback', 'loginController@google_callback');
-
 });
-// Route::get('manage-agent', function () {
-//     return view('admin.agent');
-// });
-// Route::get('manage-store', function () {
-//     return view('admin.store');
-// });
+
 Route::group(['prefix' => 'admin'   ], function () {
-    Route::get('manage-agent', function () {
-        return view('admin.agent');
+    Route::get('manage-account', function () {
+        return view('admin.account');
     });
-    Route::get('manage-store', function () {
-        return view('admin.store');
-    });
+    Route::get('list-account-type', 'admin_board\viewController@list_account_type');
+    Route::get('list-permission', 'admin_board\viewController@list_permission');
+
+    Route::resource('account-account', 'admin_board\account_accountController');
+    Route::post('account-account-permission', 'admin_board\account_accountController@account_permission');
 
 });

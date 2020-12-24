@@ -18,6 +18,7 @@ class customer_customer extends Model
                             'customer_birthday',
                             'customer_address',
                             'customer_point',
+                            'customer_taxcode',
                             'customer_created_by',
                             'force_sign_out'
                         ];

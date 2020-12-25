@@ -18,7 +18,8 @@ class order_order extends Model
                             'order_point_discount',
                             'order_total_cost',
                             'order_comment',
-                            'order_created'
+                            'order_created',
+                            'order_check_time'
                         ];
     public $timestamps = false;
     protected $primaryKey = 'id';

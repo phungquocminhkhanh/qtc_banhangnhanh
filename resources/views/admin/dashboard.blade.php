@@ -84,18 +84,21 @@
                                         <li class="active">
                                             <a href="index.html"><i class="fa fa-home"></i> <span class="nav-label">Dashboards</span></a>
                                         </li>
-                                        <li class="nav-parent">
 
-                                            <a href="#"><i><img src=""></i> <span class="nav-label">Quản lý Agent</span></a>
-                                            <ul class="children nav">
-                                                <li><a href="{{ URL::to('admin/manage-agent') }}">Danh sách Agent</a></li>
-                                            </ul>
-                                        </li>
                                         <li class="nav-parent">
 
                                             <a href="#"><i><img src=""></i> <span class="nav-label">Quản lý Tài Khoản</span></a>
                                             <ul class="children nav">
                                                 <li><a href="{{ URL::to('admin/manage-account') }}">Danh sách Tài khoản</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-parent">
+
+                                            <a href="#"><i><img src=""></i> <span class="nav-label">Quản lý sản phẩm</span></a>
+                                            <ul class="children nav">
+                                                <li><a href="{{ URL::to('admin/manage-prodcut-category') }}">Danh mục sản phẩm</a></li>
+                                                <li><a href="{{ URL::to('admin/manage-prodcut-product') }}">Danh sách sản phẩmt</a></li>
+                                                <li><a href="{{ URL::to('admin/manage-prodcut-extra') }}">Danh sách các sản phẩm kèm</a></li>
                                             </ul>
                                         </li>
 
@@ -166,9 +169,7 @@
                                     <span class="caret caret-tp"></span>
                                 </a>
                                 <ul class="dropdown-menu animated m-t-xs">
-                                    <li><a href="profile.html" class="animated animated-short fadeInUp"><i class="fa fa-user"></i> Profile</a></li>
-                                    <li><a href="contacts.html" class="animated animated-short fadeInUp"><i class="fa fa-group"></i> Contacts</a></li>
-                                    <li><a href="mailbox.html" class="animated animated-short fadeInUp"><i class="fa fa-inbox"></i> Mailbox</a></li>
+                                    <li><a  class="animated animated-short fadeInUp">.........</a></li>
                                     <li class="divider"></li>
                                     <li><a href="login.html" class="animated animated-short fadeInUp"><i class="fa fa-sign-out"></i> Logout</a></li>
                                 </ul>

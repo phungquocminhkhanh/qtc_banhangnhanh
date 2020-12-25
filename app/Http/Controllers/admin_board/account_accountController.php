@@ -5,7 +5,10 @@ namespace App\Http\Controllers\admin_board;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\account_acount;
+use App\account_authorize;
+use App\account_permission;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class account_accountController extends Controller
 {
@@ -16,8 +19,9 @@ class account_accountController extends Controller
      */
     public function index()
     {
+        $idbussiness=Auth::user()->id_business;
         $acc=new account_acount;
-        return response()->json($acc->get_all_account()) ;
+        return response()->json($acc->get_all_account($idbussiness  )) ;
     }
 
     /**
@@ -37,12 +41,48 @@ class account_accountController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function account_permission(Request $request)
+    {   $idbussiness=Auth::user()->id_business;
+        $arrpermission=$request->list_permission;
+        account_authorize::where('id_admin',$request->id_account)->where('id_business',$idbussiness)->delete();
+        foreach($arrpermission as $k=>$v)
+        {
+            $role=new account_authorize;
+            $role->id_admin=$request->id_account;
+            $role->grant_permission=$v;
+            $role->id_business=Auth::user()->id_business;
+            $role->save();
+        }
+        return response()->json([
+            'success' => 200
+        ],200);
+    }
+    public function account_detail(Request $request)
     {
-        $a=$request->data;
-        print_r($a->list_permission);
+        $idbussiness=Auth::user()->id_business;
+        $account=new account_acount;
+        $detai=account_acount::where('id',$request->id_account)->where('id_business',$idbussiness)->get();
+        $per=$account->get_permission($request->id_account);
         return response()->json([
             'success' => 200,
-            'data'=>"200"
+            'data' =>["detail"=>$detai,"permission"=>$per]
+        ],200);
+    }
+    public function account_disable(Request $request)
+    {
+        account_acount::where('id',$request->id_account)->update(['account_status'=>$request->account_status]);
+        $acc=account_acount::where('id',$request->id_account)->get();
+        return response()->json([
+            'success' => 200,
+            'data'=>$acc
+        ],200);
+    }
+    public function account_change_password(Request $request)
+    {
+        account_acount::where('id',$request->id_account)->update(['account_password'=>md5($request->account_password)]);
+        $acc=account_acount::where('id',$request->id_account)->get();
+        return response()->json([
+            'success' => 200,
+            'data'=>$acc
         ],200);
     }
     public function store(Request $request)
@@ -70,8 +110,8 @@ class account_accountController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        $acc=account_acount::where('id',$id)->get();
+    {   $idbussiness=Auth::user()->id_business;
+        $acc=account_acount::where('id',$id)->where('id_business',$idbussiness)->get();
         return response()->json([
             'success' => 200,
             'data'=>$acc

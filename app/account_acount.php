@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Auth;
 class account_acount extends Authenticatable
 {
     protected $table = 'tbl_account_account';
@@ -26,7 +26,7 @@ class account_acount extends Authenticatable
     {
         return $this->account_password;
     }
-    public function get_all_account()
+    public function get_all_account($id_store)
     {
         $acc=DB::table('tbl_account_account')
         ->join('tbl_account_type','tbl_account_type.id','=','tbl_account_account.id_type')
@@ -38,6 +38,17 @@ class account_acount extends Authenticatable
         'tbl_account_type.id as id_type',
         'tbl_account_type.type_account',
         'tbl_account_type.description')
+        ->where('tbl_account_account.id_business',$id_store)
+        ->get();
+        return $acc;
+    }
+    public function get_permission($id)
+    {
+        $idbussiness=Auth::user()->id_business;
+        $acc=DB::table('tbl_account_authorize')
+        ->join('tbl_account_permission','tbl_account_permission.id','=','tbl_account_authorize.grant_permission')
+        ->where('tbl_account_authorize.id_admin',$id)
+        ->where('tbl_account_authorize.id_business',$idbussiness)
         ->get();
         return $acc;
     }

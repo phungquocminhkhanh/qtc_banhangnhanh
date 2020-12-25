@@ -1,81 +1,95 @@
-function show_detail_account() {
-    console.log(khanhkhanh);
-    var output = `<div id="contact-1" class="tab-pane active">
+function change_password(id) {
+    $('#id_change_password_account').val(id);
+}
+
+function show_detail_account(id) {
+    $.ajax({
+        url: "../admin/account-account-detail",
+        method: "post",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token-detail"]').attr('content')
+        },
+        data: { id_account: id },
+        success: function(data) {
+            if (data.success == 200) {
+                output = `<div id="contact-1" class="tab-pane active">
                                  <div class="row m-b-lg">
-                                    <div class="col-lg-4 text-center">
-                                       <h2>Nicki Smith</h2>
-                                       <div class="m-b-sm">
-                                       <img alt="image" class="img-circle" src="../backend/img/ronaldo.jpg"
-                                       style="width: 62px">
-                                       </div>
-                                    </div>
                                     <div class="col-lg-8">
                                        <strong>
-                                       About me
+                                      ${data.data.detail[0].account_fullname}
                                        </strong>
-                                       <p>
-                                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                          tempor incididunt ut labore et dolore magna aliqua.
-                                       </p>
-                                       <button type="button" class="btn btn-primary btn-sm btn-block"><i
-                                          class="fa fa-envelope"></i> Send Message
-                                       </button>
+
                                     </div>
                                  </div>
                                  <div class="client-detail">
                                     <div class="full-height-scroll">
-                                       <strong>Last activity</strong>
+                                       <strong>Thông tin</strong>
                                        <ul class="list-group clear-list">
                                           <li class="list-group-item">
-                                             <span class="pull-right"> 12:00 am </span>
-                                             Write a letter to Sandra
+                                             <span class="pull-right">5-2019</span>
+                                             Ngày vào làm
                                           </li>
                                        </ul>
-                                       <strong>Notes</strong>
-                                       <p>
-                                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                          tempor incididunt ut labore et dolore magna aliqua.
-                                       </p>
-                                       <hr/>
-                                       <strong>Timeline activity</strong>
-                                    </div>
-                                 </div>
-                        </div>`
+                                       <strong>Quyền</strong>
+                                       <ul class="list-group clear-list">`;
+                $.each(data.data.permission, function(k, v) {
+                    output += `<li class="list-group-item">${v.description}</li>`;
+                });
+                output += ` </ul>
+                                            <hr/>
+                                            <strong id="btn-disable-account">`;
 
-    $('#detail-account').html(output)
+                if (data.data.detail[0].account_status == 'Y')
+                    output += `<button type="button" onclick="disable_account(${data.data.detail[0].id},'N')" class="btn btn-danger">Vô hiệu hóa</button></strong>`;
+                else
+                    output += `<button type="button" onclick="disable_account(${data.data.detail[0].id},'Y')" class="btn btn-secondary">Mở lại tài khoản</button></strong>`;
+
+
+                output += `<button type="button" onclick="change_password(${data.data.detail[0].id})" class="btn btn-light" data-toggle="modal" data-target="#change_password_account_Modal">Đổi mật khẩu</button></strong>`
+                output += `    </div>
+
+                                        </div>
+                                </div>`
+
+                $('#detail-account').html(output)
+            }
+
+
+        }
+    });
+
+}
+
+function disable_account(id, status) {
+    var r = confirm("Bạn có chắc muốn vô hiệu hóa không !");
+    if (r == true) {
+        $.ajax({
+            url: "../admin/account-account-disable",
+            method: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token-disable-account"]').attr('content')
+            },
+            data: { id_account: id, account_status: status },
+            success: function(data) {
+                if (data.success == 200) {
+                    console.log(data.data);
+                    if (data.data[0].account_status == 'Y') {
+                        $('#btn-disable-account').html(`<button type="button" onclick="disable_account(${data.data[0].id},'N')" class="btn btn-danger">Vô hiệu hóa</button></strong>`)
+                    } else {
+                        $('#btn-disable-account').html(`<button type="button" onclick="disable_account(${data.data[0].id},'Y')" class="btn btn-secondary">Mở lại tài khoản</button></strong>`)
+                    }
+                    alert("Cập nhật thành công");
+                    show_account();
+
+                }
+            }
+        });
+    }
 }
 
 function author_account(id) {
-
-    console.log("author")
-    $("btn_author").click(function(e) {
-        e.preventDefault();
-        let permission = []
-
-        console.log(111111);
-    });
-    // $('#author_account_form').on("submit", function(event) {
-    //     $(':checkbox:checked').each(function(i) {
-    //         console.log($(this).val());
-    //     });
-    //     event.preventDefault();
-    //     $.ajax({
-    //         url: "../admin/account-account-permission",
-    //         method: "post",
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },
-    //         data: { id_account: id, list_permission: permission },
-    //         success: function(data) {
-    //             if (data.success == 200) {
-    //                 console.log(data)
-    //                 alert("Cập nhật thành công");
-    //                 //show_account();
-    //             }
-    //         }
-    //     });
-
-    // });
+    $(':checkbox').attr('checked', false);
+    $('#id_author_account').val(id);
 }
 
 function edit_account(id) {
@@ -89,31 +103,14 @@ function edit_account(id) {
                     $('#efullname').val(v.account_fullname);
                     $('#eemail').val(v.account_email);
                     $('#ephone').val(v.account_phone);
+                    $("#id_edit_account").val(v.id);
                 });
             }
 
 
         }
     });
-    $('#edit_account_form').on("submit", function(event) {
-        event.preventDefault();
 
-        $.ajax({
-            url: "../admin/account-account/" + id,
-            method: "put",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: $('#edit_account_form').serialize(),
-            success: function(data) {
-                if (data.success == 200) {
-                    alert("Cập nhật thành công");
-                    show_account();
-                }
-            }
-        });
-
-    });
 }
 
 function show_account() {
@@ -126,7 +123,7 @@ function show_account() {
         success: function(response) {
             $.each(response, function(k, v) {
                 output += `
-                <tr>
+                <tr onclick="show_detail_account(${v.id})">
                 <td><a data-toggle="tab" href="#contact-1" class="client-link">${v.account_fullname}</a></td>
                 <td>${v.type_account}</td>
                 <td> ${v.account_phone}</td>
@@ -134,6 +131,7 @@ function show_account() {
                 <td class="client-status"><button onclick="author_account(${v.id})" class="label label-primary" data-toggle="modal" data-target="#author_account_Modal" >Phân quyền</button></td>
                 </tr>
                 `;
+
             });
             $("#content-account").html(output)
 
@@ -143,6 +141,8 @@ function show_account() {
 
 
 }
+
+
 
 $(document).ready(function() {
     $.ajax({
@@ -192,16 +192,84 @@ $(document).ready(function() {
             url: "../admin/account-account",
             method: "post",
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="csrf-token-insert"]').attr('content')
             },
             data: $('#insert_account_form').serialize(),
             success: function(data) {
                 if (data.success == 200) {
                     alert("Thêm thành công");
                     show_account();
+                    $('#close_modol_insert').click();
                 }
             }
         });
 
     });
+    $('#edit_account_form').on("submit", function(event) {
+        event.preventDefault();
+        id = $('#id_edit_account').val();
+        $.ajax({
+            url: "../admin/account-account/" + id,
+            method: "put",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token-edit"]').attr('content')
+            },
+            data: $('#edit_account_form').serialize(),
+            success: function(data) {
+                if (data.success == 200) {
+                    alert("Cập nhật thành công");
+                    show_account();
+                    $('#close_modol_edit').click();
+                }
+            }
+        });
+
+    });
+    $('#author_account_form').on("submit", function(event) {
+        event.preventDefault();
+        let permission = [];
+
+        $(':checkbox:checked').each(function(i) {
+            permission.push($(this).val());
+        });
+
+        $.ajax({
+            url: "../admin/account-account-permission",
+            method: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token-author"]').attr('content')
+            },
+            data: { id_account: $('#id_author_account').val(), list_permission: permission },
+            success: function(data) {
+                if (data.success == 200) {
+                    alert("Phân quyền thành công thành công");
+                    $('#close_modol_author').click();
+                }
+            }
+        });
+    });
+    $('#change_password_account_form').on("submit", function(event) {
+        event.preventDefault();
+        if ($('#epassword_change').val() != $('#epassword_change2').val()) {
+            alert("Mật khẩu nhập lại không đúng");
+        } else {
+            $.ajax({
+                url: "../admin/account-account-change-password",
+                method: "post",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token-change-password"]').attr('content')
+                },
+                data: { id_account: $('#id_change_password_account').val(), account_password: $('#epassword_change').val() },
+                success: function(data) {
+                    if (data.success == 200) {
+                        alert("Bạn đã cập nhật tài khoản này thành công");
+                        $('#close_modol_changge_password').click();
+                    }
+                }
+            });
+        }
+
+    });
+
+
 });

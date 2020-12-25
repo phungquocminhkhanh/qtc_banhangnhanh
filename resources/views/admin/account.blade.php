@@ -39,13 +39,14 @@
                            </div>
                            <div class="clients-list">
                               <ul class="nav nav-tabs tab-border-top-danger">
-                                 <span class="pull-right small text-muted">1406 Elements</span>
+                                 <li class="active"><a data-toggle="tab" href="#tab-account"><i class="fa fa-user"></i> Account</a></li>
+                                 <li class="active"><a data-toggle="tab" href="#tab-account"><i class="fa fa-user"></i> Account</a></li>
                                  <li class="active"><a data-toggle="tab" href="#tab-account"><i class="fa fa-user"></i> Account</a></li>
                                  <li class="active"> <button type="button" name="x" id="x" data-toggle="modal" data-target="#add_account_Modal" class="btn btn-warning">Add</button></li>
                               </ul>
                               <div class="tab-content" >
 
-                                 <div id="tab-account" class="tab-pane active" onclick="show_detail_account()">
+                                 <div id="tab-account" class="tab-pane active" >
                                     <div class="full-height-scroll">
                                        <div class="table-responsive">
                                           <table class="table table-striped table-hover">
@@ -73,8 +74,8 @@
          </div>
 
     </div>
-
-
+    <meta name="csrf-token-disable-account" content="{{ csrf_token() }}" />
+    <meta name="csrf-token-detail" content="{{ csrf_token() }}" />
         <div id="add_account_Modal" class="modal fade">
             <div class="modal-dialog">
              <div class="modal-content">
@@ -83,9 +84,9 @@
                <h4 class="modal-title">Thêm Nhân Viên</h4>
               </div>
               <div class="modal-body">
-                <meta name="csrf-token" content="{{ csrf_token() }}" />
+                <meta name="csrf-token-insert" content="{{ csrf_token() }}" />
                <form method="post" id="insert_account_form">
-                <input type="hidden" name="id_business" value="{{Auth::user()->id_business}}">
+                <input type="hidden" name="id_business" id="" value="{{Auth::user()->id_business}}">
                 <label>Username</label>
                 <input type="text" name="account_username" id="username" class="form-control" />
                 <br />
@@ -110,7 +111,7 @@
                </form>
               </div>
               <div class="modal-footer">
-               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               <button type="button" id="close_modol_insert" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
              </div>
             </div>
@@ -125,7 +126,7 @@
                <h4 class="modal-title">Nhân Viên</h4>
               </div>
               <div class="modal-body">
-                <meta name="csrf-token" content="{{ csrf_token() }}" />
+                <meta name="csrf-token-edit" content="{{ csrf_token() }}" />
                <form id="edit_account_form">
                 <label>Username</label>
                 <input type="text" name="account_username" id="eusername" class="form-control" />
@@ -144,11 +145,12 @@
 
                 </select>
                 <br />
+                <input id="id_edit_account" value="" type="hidden">
                 <input type="submit" name="edit" id="edit_account" value="Cập nhật" class="btn btn-success" />
                </form>
               </div>
               <div class="modal-footer">
-               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               <button type="button" id="close_modol_edit" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
              </div>
             </div>
@@ -163,8 +165,9 @@
                <h4 class="modal-title">Phân quyền nhân viên</h4>
               </div>
               <div class="modal-body">
-                <meta name="csrf-token" content="{{ csrf_token() }}" />
 
+                <form id="author_account_form">
+                <meta name="csrf-token-author" content="{{ csrf_token() }}" />
                 <div class="inqbox-content">
                     <table class="table table-striped">
                        <thead>
@@ -178,13 +181,46 @@
                        </tbody>
                     </table>
                  </div>
-
+                 <input id="id_author_account" value="" type="hidden">
                 <br />
-                <button type="button" id="btn_author">Cấp quyền</button>
-
+                <input type="submit" name="edit" id="btn_author_account" value="Cập nhật" class="btn btn-success" />
+                {{-- <button type="button" id="btn-author_account" class="btn btn-success">Phân quyền</button> --}}
+                </form>
               </div>
               <div class="modal-footer">
-               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               <button type="button" id="close_modol_author" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+             </div>
+            </div>
+           </div>
+
+
+           <div id="change_password_account_Modal" class="modal fade">
+            <div class="modal-dialog">
+             <div class="modal-content">
+              <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal">&times;</button>
+               <h4 class="modal-title">Đổi lại mật khẩu</h4>
+              </div>
+              <div class="modal-body">
+
+                <form id="change_password_account_form">
+                <meta name="csrf-token-change-password" content="{{ csrf_token() }}" />
+                <div class="inqbox-content">
+                    <label>Mật khẩu mới</label>
+                    <input type="password" name="account_password" id="epassword_change" class="form-control" />
+                    <br />
+                    <label>Nhập lại mật khẩu</label>
+                    <input type="password" name="account_password" id="epassword_change2" class="form-control" />
+                     <br />
+                    </div>
+                     <input id="id_change_password_account" value="" type="hidden">
+                    <br />
+                <input type="submit" name="edit" id="btn_change_password_account" value="Cập nhật" class="btn btn-success" />
+                </form>
+              </div>
+              <div class="modal-footer">
+               <button type="button" id="close_modol_changge_password" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
              </div>
             </div>

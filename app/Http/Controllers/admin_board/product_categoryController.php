@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\product_category;
 use App\account_permission;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 class product_categoryController extends Controller
 {
     /**
@@ -14,9 +15,9 @@ class product_categoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
+        return response()->json(product_category::all());
     }
 
     /**
@@ -38,25 +39,31 @@ class product_categoryController extends Controller
     public function store(Request $request)
     {
 
-        $filehinh= $request->file('category_icon');
-        var_dump($filehinh);
-        //$tenhinh=$icon->getClientOriginalName();
-        // $icon=$request->category_icon;
-        // $category=new product_category;
-        // $category->id_business=Auth::user()->id_business;
-        // $category->title=$request->category_title;
+        $validation = Validator::make($request->all(), [
+            'select_file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+           ]);
+           if($validation->passes())
+           {
+            $image = $request->file('select_file');
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $new_name);
 
-        // $tenhinh=$icon->getClientOriginalName();
-        // $name_image=current(explode('.', $tenhinh));
-        // $new_image=$name_image.rand(0,99).'.'.$icon->getClientOriginalExtension();
-        // $icon->move('image_banhangnhanh',$new_image);
-        // $category->category_icon=$new_image;
-        // $category->save();
-        // return response()->json([
-        //     'success' => 200,
-        //     'data'=>$tenhinh
-        // ],200);
-
+            $category=new product_category;
+            $category->id_business=Auth::user()->id_business;
+            $category->category_icon='images/'.$new_name;
+            $category->category_title=$request->category_title;
+            $category->save();
+            return response()->json([
+                'status'=>200,
+             'message'   => 'Thêm thành công',
+            ]);
+           }
+           else
+           {
+            return response()->json([
+             'message'   => "Thêm thất bại",
+            ]);
+           }
 
     }
 

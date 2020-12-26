@@ -40,8 +40,6 @@
                            <div class="clients-list">
                               <ul class="nav nav-tabs tab-border-top-danger">
                                  <li class="active"><a data-toggle="tab" href="#tab-account"><i class="fa fa-user"></i> Account</a></li>
-                                 <li class="active"><a data-toggle="tab" href="#tab-account"><i class="fa fa-user"></i> Account</a></li>
-                                 <li class="active"><a data-toggle="tab" href="#tab-account"><i class="fa fa-user"></i> Account</a></li>
                                  <li class="active"> <button type="button" name="x" id="x" data-toggle="modal" data-target="#add_account_Modal" class="btn btn-warning">Add</button></li>
                               </ul>
                               <div class="tab-content" >

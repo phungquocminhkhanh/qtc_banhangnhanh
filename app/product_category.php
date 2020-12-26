@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class product_category extends Model
 {
-    protected $table = 'tbl_porduct_category';
+    protected $table = 'tbl_product_category';
     protected $fillable = ['id',
                             'id_business',
                             'category_icon',

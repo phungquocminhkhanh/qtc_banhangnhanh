@@ -1,8 +1,7 @@
 @extends('admin.dashboard')
 @section('admin_content')
    <body>
-    {{-- <?php $idbussin = Auth::user()->id_business;
-    ?> --}}
+
     <div style="clear: both; height: 61px;"></div>
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
@@ -80,19 +79,20 @@
            <h4 class="modal-title">Thêm danh mục sản phẩm</h4>
           </div>
           <div class="modal-body">
+           <form id="insert_category_form" enctype="multipart/form-data">
+            {{ csrf_field() }}
 
-            {{-- <meta name="csrf-token-insert" content="{{ csrf_token() }}" /> --}}
-           <form id="insert_category_form" action="{{ URL::TO('/admin/product-category')}}" method="POST">
-            {{csrf_field()}}
             <label>Tên danh mục</label>
             <input type="text" name="category_title" id="category_title" class="form-control" />
-            <label>
-                <input type="file" name="category_icon" id="inputImage" class="hide">Thêm icon
+            <br/>
+            <label><label>Icon danh mục</label>
+                <input type="file" id="category_icon" onChange="return fileValidation()" name="select_file" class="form-control" multiple="multiple"  placeholder="Hình ảnh">
                 </label>
             <br/>
+                <span id="upload_ed_image"></span>
             <br/>
             <br/>
-            <input type="submit" name="insert" id="insert_category" value="Thêm danh mục" class="btn btn-success" />
+            <input type="submit" name="insert" id="insert_category" value="Thêm" class="btn btn-success" />
            </form>
           </div>
           <div class="modal-footer">

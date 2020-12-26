@@ -3,7 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 class product_product extends Model
 {
     protected $table = 'tbl_product_product';
@@ -22,4 +23,9 @@ class product_product extends Model
                         ];
     public $timestamps = false;
     protected $primaryKey = 'id';
+    public function get_product()
+    {
+        $product=DB::table('tbl_product_product')->where('id_business',Auth::user()->id_business)->get();
+        return $product;
+    }
 }

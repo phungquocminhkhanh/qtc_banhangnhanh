@@ -38,8 +38,11 @@ Route::group(['prefix' => 'admin'   ], function () {
     Route::get('manage-account', function () {
         return view('admin.account');
     });
-    Route::get('manage-prodcut-category', function () {
+    Route::get('manage-product-category', function () {
         return view('admin.product-category');
+    });
+    Route::get('manage-product-product', function () {
+        return view('admin.product-product');
     });
     Route::get('list-account-type', 'admin_board\viewController@list_account_type');
     Route::get('list-permission', 'admin_board\viewController@list_permission');
@@ -51,6 +54,15 @@ Route::group(['prefix' => 'admin'   ], function () {
     Route::post('account-account-change-password', 'admin_board\account_accountController@account_change_password');
 
     Route::resource('product-category', 'admin_board\product_categoryController');
+    Route::post('product-category-update', 'admin_board\product_categoryController@product_category_update');
 
+    Route::resource('product-product', 'admin_board\product_productController');
+
+    Route::get('product-product-unit', 'admin_board\product_productController@get_unit');
+    Route::post('product-product-extra', 'admin_board\product_productController@insert_product_extra');
+    Route::post('product-product-seach', 'admin_board\product_productController@product_seach');
+    Route::post('product-product-seach-auto', 'admin_board\product_productController@product_seach_auto');
+    Route::post('product-product-delete-extra', 'admin_board\product_productController@detele_extra');
+    Route::post('product-product-disable', 'admin_board\product_productController@product_disable');
 
 });

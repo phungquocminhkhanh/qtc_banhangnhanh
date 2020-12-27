@@ -61,7 +61,7 @@ function show_detail_account(id) {
 }
 
 function disable_account(id, status) {
-    var r = confirm("Bạn có chắc muốn vô hiệu hóa không !");
+    var r = confirm("Bạn có chắc muốn không !");
     if (r == true) {
         $.ajax({
             url: "../admin/account-account-disable",
@@ -145,6 +145,7 @@ function show_account() {
 
 
 $(document).ready(function() {
+    show_account();
     $.ajax({
         type: "get",
         url: "../admin/list-account-type",
@@ -184,7 +185,7 @@ $(document).ready(function() {
 
         }
     });
-    show_account();
+
     $('#insert_account_form').on("submit", function(event) {
         event.preventDefault();
 

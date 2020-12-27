@@ -96,9 +96,9 @@
 
                                             <a href="#"><i><img src=""></i> <span class="nav-label">Quản lý sản phẩm</span></a>
                                             <ul class="children nav">
-                                                <li><a href="{{ URL::to('admin/manage-prodcut-category') }}">Danh mục sản phẩm</a></li>
-                                                <li><a href="{{ URL::to('admin/manage-prodcut-product') }}">Danh sách sản phẩmt</a></li>
-                                                <li><a href="{{ URL::to('admin/manage-prodcut-extra') }}">Danh sách các sản phẩm kèm</a></li>
+                                                <li><a href="{{ URL::to('admin/manage-product-category') }}">Danh mục sản phẩm</a></li>
+                                                <li><a href="{{ URL::to('admin/manage-product-product') }}">Danh sách sản phẩmt</a></li>
+                                                <li><a href="{{ URL::to('admin/manage-product-extra') }}">Danh sách các sản phẩm kèm</a></li>
                                             </ul>
                                         </li>
 
@@ -222,4 +222,13 @@
             <script src="{{ asset('backend/js/demo/sparkline-demo.js')}}"></script>
             <script src="{{ asset('backend/js/plugins/chartJs/Chart.min.js')}}"></script>
     </body>
+    <script>
+        $(document).ready(function () {
+            "use strict";
+            // Add slimscroll to element
+            $('.full-height-scroll').slimscroll({
+                height: '100%'
+            });
+        });
+        </script>
 </html>

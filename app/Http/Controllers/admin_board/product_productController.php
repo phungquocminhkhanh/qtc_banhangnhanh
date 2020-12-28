@@ -35,11 +35,15 @@ class product_productController extends Controller
         $sql='select * from tbl_product_product where 1=1 ';
         if($request->id_category)
         {
+<<<<<<< HEAD
             if($request->id_category!=0)
             {
                 $sql.=' and id_category='.$request->id_category;
             }
 
+=======
+            $sql.=' and id_category='.$request->id_category;
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
         }
         if($request->id_product)
             $sql.=' and id='.$request->id_product;
@@ -73,6 +77,7 @@ class product_productController extends Controller
             'status'=>200,
             'data'=>$product,
         ]);
+<<<<<<< HEAD
     }
     public function product_seach_auto(Request $request)//bấm cái gì thì nó tự hiểu và seach cái đó
     {
@@ -122,6 +127,21 @@ class product_productController extends Controller
             'success' => 200,
             'data'=>$acc
         ],200);
+=======
+    }
+    public function product_seach_auto(Request $request)//bấm cái gì thì nó tự hiểu và seach cái đó
+    {
+       $product=DB::table('tbl_product_product')
+       ->where('product_title', 'LIKE', "%{$request->key_seach}%")
+       ->orWhere('product_sales_price', '<', $request->key_seach)
+       ->orWhere('product_code', 'LIKE', "%{$request->key_seach}%")
+       ->orWhere('product_point', '<', $request->key_seach)
+       ->get();
+        return response()->json([
+            'status'=>200,
+            'data'=>$product
+        ]);
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
     }
     public function insert_product_extra(Request $request)
     {

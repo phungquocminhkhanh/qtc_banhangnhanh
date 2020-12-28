@@ -44,6 +44,7 @@ Route::group(['prefix' => 'admin'   ], function () {
     Route::get('manage-product-product', function () {
         return view('admin.product-product');
     });
+<<<<<<< HEAD
     Route::get('manage-floor-table', function () {
         return view('admin.floor-table');
     });
@@ -52,6 +53,8 @@ Route::group(['prefix' => 'admin'   ], function () {
     });
 
 
+=======
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
     Route::get('list-account-type', 'admin_board\viewController@list_account_type');
     Route::get('list-permission', 'admin_board\viewController@list_permission');
 
@@ -62,6 +65,7 @@ Route::group(['prefix' => 'admin'   ], function () {
     Route::post('account-account-change-password', 'admin_board\account_accountController@account_change_password');
 
     Route::resource('product-category', 'admin_board\product_categoryController');
+<<<<<<< HEAD
     Route::post('product-category-update', 'admin_board\product_categoryController@product_category_update');
     // dua vao ham put update thi nos co bug
     Route::resource('product-product', 'admin_board\product_productController');
@@ -77,6 +81,15 @@ Route::group(['prefix' => 'admin'   ], function () {
 
     Route::resource('table', 'admin_board\tableController');
     Route::post('get-table', 'admin_board\tableController@get_table');//lay table theo điều kiện
+=======
+    Route::resource('product-product', 'admin_board\product_productController');
+
+    Route::get('product-product-unit', 'admin_board\product_productController@get_unit');
+    Route::post('product-product-extra', 'admin_board\product_productController@insert_product_extra');
+    Route::post('product-product-seach', 'admin_board\product_productController@product_seach');
+    Route::post('product-product-seach-auto', 'admin_board\product_productController@product_seach_auto');
+    Route::post('product-product-delete-extra', 'admin_board\product_productController@detele_extra');
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
 
     Route::resource('customer-customer', 'admin_board\customer_customerController');
     Route::post('get-customer-customer', 'admin_board\customer_customerController@get_customer');

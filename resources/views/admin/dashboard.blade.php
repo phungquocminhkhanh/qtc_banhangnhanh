@@ -98,6 +98,7 @@
                                             <ul class="children nav">
                                                 <li><a href="{{ URL::to('admin/manage-product-category') }}">Danh mục sản phẩm</a></li>
                                                 <li><a href="{{ URL::to('admin/manage-product-product') }}">Danh sách sản phẩmt</a></li>
+<<<<<<< HEAD
                                             </ul>
                                         </li>
                                         <li class="nav-parent">
@@ -111,6 +112,9 @@
                                             <ul class="children nav">
                                                 <li><a href="{{ URL::to('admin/manage-customer') }}">Danh sách khách hàng</a></li>\
                                                 <li><a href="{{ URL::to('admin/manage-customer-level') }}">Cấp độ khách hàng</a></li>
+=======
+                                                <li><a href="{{ URL::to('admin/manage-product-extra') }}">Danh sách các sản phẩm kèm</a></li>
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
                                             </ul>
                                         </li>
 

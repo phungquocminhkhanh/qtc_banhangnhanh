@@ -12,6 +12,7 @@ function fileValidation() {
         if (fileInput.files && fileInput.files[0]) {
             var reader = new FileReader();
             reader.onload = function(e) {
+<<<<<<< HEAD
                 document.getElementById('upload_ed_image').innerHTML = '<img style="width:150px;height:150px;" src="' + e.target.result + '"/>';
             };
             reader.readAsDataURL(fileInput.files[0]);
@@ -35,6 +36,9 @@ function fileValidation2() {
             reader.onload = function(e) {
                 $('#check_upload_image').val(1);
                 document.getElementById('eupload_ed_image').innerHTML = '<img style="width:150px;height:150px;" src="' + e.target.result + '"/>';
+=======
+                document.getElementById('upload_ed_image').innerHTML = '<img style="width:100px;height:70px;" src="' + e.target.result + '"/>';
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
             };
             reader.readAsDataURL(fileInput.files[0]);
         }
@@ -51,7 +55,10 @@ function show_category() {
         url: "../admin/product-category",
         dataType: "json",
         success: function(response) {
+<<<<<<< HEAD
             output1 += `<li class="active"><a onclick="show_product_in_category(0)"><i class="fa fa-user"></i>Tất cả</a></li>`;
+=======
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
             $.each(response, function(k, v) {
                 output2 += `
                     <option value="${v.id}">${v.category_title}</option>
@@ -61,7 +68,10 @@ function show_category() {
             });
             output1 += `<li class="active"> <button type="button" name="x" id="x" data-toggle="modal" data-target="#add_product_Modal" class="btn btn-warning">Thêm sản phẩm</button></li>`
             $("#id_category").html(output2); //select danh mục khi add product
+<<<<<<< HEAD
             //select danh mục khi edit product
+=======
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
             $("#content_category").html(output1);
 
         }
@@ -90,7 +100,11 @@ function show_unit() {
 
 function show_product_in_category(id) {
     let output = "";
+<<<<<<< HEAD
     $("#category_seach_product").val(id); //luu id category tam de gianh cho seach auto
+=======
+
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
     $.ajax({
         type: "post",
         url: "../admin/product-product-seach",
@@ -100,6 +114,10 @@ function show_product_in_category(id) {
         data: { id_category: id },
         dataType: "json",
         success: function(response) {
+<<<<<<< HEAD
+=======
+            console.log(response);
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
             $.each(response.data, function(k, v) {
                 output += `
                 <tr onclick="show_detail_product(${v.id})">
@@ -109,7 +127,11 @@ function show_product_in_category(id) {
                 </td>
                 <td> ${v.product_sales_price} VND</td>
                 <input type="hidden" id="extra${v.id}" value="${v.product_title}">
+<<<<<<< HEAD
                 <td class="client-status"><button onclick="edit_product(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_product_Modal" >Sửa</button></td>
+=======
+                <td class="client-status"><button onclick="edit_category(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_account_Modal" >Sửa</button></td>
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
                 <td class="client-status"><button onclick="id_product_extra(${v.id})" class="label label-primary" data-toggle="modal" data-target="#add_product_extra_Modal" >Thêm món kèm</button></td>
                 </tr>
                 `;
@@ -121,6 +143,7 @@ function show_product_in_category(id) {
     });
 }
 
+<<<<<<< HEAD
 function edit_product(id) {
     $('#id_product').val(id);
     $('#check_upload_image').val(0);
@@ -164,6 +187,8 @@ function edit_product(id) {
 
 
 
+=======
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
 function show_detail_product(id) {
     $.ajax({
         type: "post",
@@ -174,6 +199,10 @@ function show_detail_product(id) {
         data: { id_product: id },
         dataType: "json",
         success: function(response) {
+<<<<<<< HEAD
+=======
+            console.log(response.extra)
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
             if (response.status == 200) {
                 output = `<div id="contact-1" class="tab-pane active">
                                  <div class="row m-b-lg">
@@ -205,14 +234,24 @@ function show_detail_product(id) {
                     });
                     output += `         </ul>
                                                     <hr/>
+<<<<<<< HEAD
                                                     <strong id="btn-disable-product">`;
+=======
+                                                    <strong id="btn-disable-account">`;
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
                 }
 
 
                 if (response.product[0].product_disable == 'N')
+<<<<<<< HEAD
                     output += `<button type="button" onclick="disable_product(${response.product[0].id},'Y')" class="btn btn-danger">Ngừng bán</button></strong>`;
                 else
                     output += `<button type="button" onclick="disable_product(${response.product[0].id},'N')" class="btn btn-secondary">Mở</button></strong>`;
+=======
+                    output += `<button type="button" onclick="disable_account(${response.product[0].id},'N')" class="btn btn-danger">Ngừng bán</button></strong>`;
+                else
+                    output += `<button type="button" onclick="disable_account(${response.product[0].id},'Y')" class="btn btn-secondary">Mở</button></strong>`;
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
 
 
                 output += `&nbsp; &nbsp; &nbsp; &nbsp; <button type="button" onclick="change_password(${response.product[0].id})" class="btn btn-danger" data-toggle="modal" data-target="#change_password_account_Modal">Xóa sản phẩm</button></strong>`
@@ -229,6 +268,7 @@ function show_detail_product(id) {
     });
 }
 
+<<<<<<< HEAD
 function disable_product(id, status) {
     var r = confirm("Bạn có chắc muốn không !");
     if (r == true) {
@@ -255,6 +295,8 @@ function disable_product(id, status) {
     }
 }
 
+=======
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
 function delete_extra_detail(id) {
 
     var r = confirm("Bạn có chắc muốn xóa không!");
@@ -295,7 +337,11 @@ function show_product() {
                 </td>
                 <td> ${v.product_sales_price} VND</td>
                 <input type="hidden" id="extra${v.id}" value="${v.product_title}">
+<<<<<<< HEAD
                 <td class="client-status"><button onclick="edit_product(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_product_Modal" >Sửa</button></td>
+=======
+                <td class="client-status"><button onclick="edit_category(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_account_Modal" >Sửa</button></td>
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
                 <td class="client-status"><button onclick="id_product_extra(${v.id})" class="label label-primary" data-toggle="modal" data-target="#add_product_extra_Modal" >Thêm món kèm</button></td>
                 </tr>
                 `;
@@ -383,7 +429,11 @@ $(document).ready(function() {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token-seach-auto"]').attr('content')
             },
+<<<<<<< HEAD
             data: { key_seach: $(this).val(), id_category: $('#category_seach_product').val() }, // chuyen vao bien name vs du lieu cua input do
+=======
+            data: { key_seach: $(this).val() }, // chuyen vao bien name vs du lieu cua input do
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
             dataType: "json",
             success: function(response) {
                 let output = "";
@@ -396,7 +446,11 @@ $(document).ready(function() {
                     </td>
                     <td> ${v.product_sales_price} VND</td>
                     <input type="hidden" id="extra${v.id}" value="${v.product_title}">
+<<<<<<< HEAD
                     <td class="client-status"><button onclick="edit_product(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_product_Modal" >Sửa</button></td>
+=======
+                    <td class="client-status"><button onclick="edit_category(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_account_Modal" >Sửa</button></td>
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
                     <td class="client-status"><button onclick="id_product_extra(${v.id})" class="label label-primary" data-toggle="modal" data-target="#add_product_extra_Modal" >Thêm món kèm</button></td>
                     </tr>
                     `;
@@ -407,6 +461,7 @@ $(document).ready(function() {
 
             }
         });
+<<<<<<< HEAD
     });
     $('#edit_product_form').on('submit', function(event) {
         event.preventDefault();
@@ -427,4 +482,7 @@ $(document).ready(function() {
             }
         })
     });
+=======
+    })
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
 });

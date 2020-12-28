@@ -35,8 +35,12 @@
                               <input type="text" id="seach_auto" placeholder="Search client " class="input form-control">
                               <span class="input-group-btn">
                               <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
+<<<<<<< HEAD
                               <input type="hidden" value="" id="category_seach_product">
                             </span>
+=======
+                              </span>
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
                            </div>
                            <div class="clients-list">
                               <ul class="nav nav-tabs tab-border-top-danger" id="content_category">
@@ -73,8 +77,11 @@
          </div>
 
     </div>
+<<<<<<< HEAD
 
     <meta name="csrf-token-disable-product" content="{{ csrf_token() }}" />
+=======
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
     <meta name="csrf-token-delete-extra" content="{{ csrf_token() }}" />
     <meta name="csrf-token-product-detail" content="{{ csrf_token() }}" />
     <meta name="csrf-token-product-seach" content="{{ csrf_token() }}" />
@@ -92,7 +99,11 @@
            <form id="insert_product_form" enctype="multipart/form-data">
             {{ csrf_field() }}
 
+<<<<<<< HEAD
             <label>Tên sản phẩm</label>
+=======
+            <label>Tên danh mục</label>
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
             <input type="text" name="product_title" id="product_title" class="form-control" />
             <br/>
             <label>Danh mục</label>
@@ -142,6 +153,7 @@
        </div>
 
 
+<<<<<<< HEAD
 
 
        <div id="edit_product_Modal" class="modal fade">
@@ -213,6 +225,8 @@
 
 
 
+=======
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
        <div id="add_product_extra_Modal" class="modal fade">
         <div class="modal-dialog">
          <div class="modal-content">

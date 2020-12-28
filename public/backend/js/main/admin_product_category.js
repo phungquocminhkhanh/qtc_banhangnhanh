@@ -10,8 +10,13 @@ function show_category() {
                 <tr>
                 <td class="client-avatar"><img alt="image" src="../${v.category_icon}"> </td>
                 <td> ${v.category_title}</td>
+<<<<<<< HEAD
                 <td class="client-status"><button onclick="edit_category(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_category_Modal" >Sửa</button></td>
 
+=======
+                <td class="client-status"><button onclick="edit_category(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_account_Modal" >Sửa</button></td>
+                <td class="client-status"><button onclick="delete_category(${v.id})" class="label label-primary" data-toggle="modal" data-target="#author_account_Modal" >Phân quyền</button></td>
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
                 </tr>
                 `;
 
@@ -22,6 +27,7 @@ function show_category() {
     });
 }
 
+<<<<<<< HEAD
 function edit_category(id) {
     $('#id_category').val(id);
     $('#check_upload_image').val(0);
@@ -44,6 +50,8 @@ function edit_category(id) {
 
 }
 
+=======
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
 function fileValidation() {
     var fileInput = document.getElementById('category_icon');
     var filePath = fileInput.value; //lấy giá trị input theo id
@@ -64,6 +72,7 @@ function fileValidation() {
         }
     }
 }
+<<<<<<< HEAD
 
 function fileValidation2() {
     var fileInput = document.getElementById('ecategory_icon');
@@ -92,6 +101,14 @@ $(document).ready(function() {
         event.preventDefault();
         $.ajax({
             url: "../admin/product-category",
+=======
+$(document).ready(function() {
+    show_category();
+    $('#insert_product_form').on('submit', function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: "../admin/product-product",
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
             method: "POST",
             data: new FormData(this),
             dataType: 'JSON',
@@ -107,6 +124,7 @@ $(document).ready(function() {
             }
         })
     });
+<<<<<<< HEAD
     $('#edit_category_form').on('submit', function(event) {
         event.preventDefault();
         id = $('#id_category').val();
@@ -127,4 +145,6 @@ $(document).ready(function() {
             }
         })
     });
+=======
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
 });

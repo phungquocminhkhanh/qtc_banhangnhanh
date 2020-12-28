@@ -61,7 +61,10 @@ class product_categoryController extends Controller
            else
            {
             return response()->json([
+<<<<<<< HEAD
                 'status'=>200,
+=======
+>>>>>>> 9f95f13acb0054fe12a38f08bdd84e84f02ed5b1
              'message'   => "Thêm thất bại",
             ]);
            }

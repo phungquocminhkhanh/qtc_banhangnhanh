@@ -12,7 +12,29 @@ function fileValidation() {
         if (fileInput.files && fileInput.files[0]) {
             var reader = new FileReader();
             reader.onload = function(e) {
-                document.getElementById('upload_ed_image').innerHTML = '<img style="width:100px;height:70px;" src="' + e.target.result + '"/>';
+                document.getElementById('upload_ed_image').innerHTML = '<img style="width:150px;height:150px;" src="' + e.target.result + '"/>';
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+}
+
+function fileValidation2() {
+    var fileInput = document.getElementById('eproduct_img');
+    var filePath = fileInput.value; //lấy giá trị input theo id
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i; //các tập tin cho phép
+    //Kiểm tra định dạng
+    if (!allowedExtensions.exec(filePath)) {
+        alert('Vui lòng upload các icon có định dạng: .jpeg/.jpg/.png/.gif only.');
+        fileInput.value = '';
+        return false;
+    } else {
+        //Image preview
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#check_upload_image').val(1);
+                document.getElementById('eupload_ed_image').innerHTML = '<img style="width:150px;height:150px;" src="' + e.target.result + '"/>';
             };
             reader.readAsDataURL(fileInput.files[0]);
         }
@@ -39,6 +61,7 @@ function show_category() {
             });
             output1 += `<li class="active"> <button type="button" name="x" id="x" data-toggle="modal" data-target="#add_product_Modal" class="btn btn-warning">Thêm sản phẩm</button></li>`
             $("#id_category").html(output2); //select danh mục khi add product
+            //select danh mục khi edit product
             $("#content_category").html(output1);
 
         }
@@ -77,7 +100,6 @@ function show_product_in_category(id) {
         data: { id_category: id },
         dataType: "json",
         success: function(response) {
-            console.log(response);
             $.each(response.data, function(k, v) {
                 output += `
                 <tr onclick="show_detail_product(${v.id})">
@@ -87,7 +109,7 @@ function show_product_in_category(id) {
                 </td>
                 <td> ${v.product_sales_price} VND</td>
                 <input type="hidden" id="extra${v.id}" value="${v.product_title}">
-                <td class="client-status"><button onclick="edit_category(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_account_Modal" >Sửa</button></td>
+                <td class="client-status"><button onclick="edit_product(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_product_Modal" >Sửa</button></td>
                 <td class="client-status"><button onclick="id_product_extra(${v.id})" class="label label-primary" data-toggle="modal" data-target="#add_product_extra_Modal" >Thêm món kèm</button></td>
                 </tr>
                 `;
@@ -99,6 +121,49 @@ function show_product_in_category(id) {
     });
 }
 
+function edit_product(id) {
+    $('#id_product').val(id);
+    $('#check_upload_image').val(0);
+    let outputcategory = "";
+    let outputunit = "";
+    $.ajax({
+        url: "../admin/product-product/" + id,
+        method: "GET",
+        success: function(data) {
+            if (data.status == 200) {
+
+                $.each(data.product, function(k, v) {
+                    $('#eproduct_title').val(v.product_title);
+                    $('#eproduct_sales_price').val(v.product_sales_price);
+                    $('#eproduct_description').val(v.product_description);
+                    $('#eproduct_code').val(v.product_code);
+                    $('#eproduct_point').val(v.product_point);
+                    $img = `<img style="width:150px;height:150px;" src="../${v.product_img}"/>`;
+                    $('#eupload_ed_image').html($img);
+                    $.each(data.category, function(i, c) {
+                        if (c.id == v.id_category)
+                            outputcategory += ` <option value="${c.id}" selected>${c.category_title}</option>`;
+                        else
+                            outputcategory += ` <option value="${c.id}">${c.category_title}</option>`;
+                    });
+                    $.each(data.unit, function(j, u) {
+                        if (u.id == v.id_unit)
+                            outputunit += ` <option value="${u.id}" selected>${u.unit}</option>`;
+                        else
+                            outputunit += ` <option value="${u.id}">${u.unit}</option>`;
+                    });
+                    $("#eid_unit").html(outputunit);
+                    $("#eid_category").html(outputcategory);
+                });
+            }
+
+
+        }
+    });
+}
+
+
+
 function show_detail_product(id) {
     $.ajax({
         type: "post",
@@ -109,7 +174,6 @@ function show_detail_product(id) {
         data: { id_product: id },
         dataType: "json",
         success: function(response) {
-            console.log(response.extra)
             if (response.status == 200) {
                 output = `<div id="contact-1" class="tab-pane active">
                                  <div class="row m-b-lg">
@@ -177,7 +241,6 @@ function disable_product(id, status) {
             data: { id_product: id, status_product: status },
             success: function(data) {
                 if (data.success == 200) {
-                    console.log(data.data);
                     if (data.data[0].product_disable == 'N') {
                         $('#btn-disable-product').html(`<button type="button" onclick="disable_product(${data.data[0].id},'Y')" class="btn btn-danger">Vô hiệu hóa</button></strong>`)
                     } else {
@@ -232,7 +295,7 @@ function show_product() {
                 </td>
                 <td> ${v.product_sales_price} VND</td>
                 <input type="hidden" id="extra${v.id}" value="${v.product_title}">
-                <td class="client-status"><button onclick="edit_category(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_account_Modal" >Sửa</button></td>
+                <td class="client-status"><button onclick="edit_product(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_product_Modal" >Sửa</button></td>
                 <td class="client-status"><button onclick="id_product_extra(${v.id})" class="label label-primary" data-toggle="modal" data-target="#add_product_extra_Modal" >Thêm món kèm</button></td>
                 </tr>
                 `;
@@ -333,7 +396,7 @@ $(document).ready(function() {
                     </td>
                     <td> ${v.product_sales_price} VND</td>
                     <input type="hidden" id="extra${v.id}" value="${v.product_title}">
-                    <td class="client-status"><button onclick="edit_category(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_account_Modal" >Sửa</button></td>
+                    <td class="client-status"><button onclick="edit_product(${v.id})" class="label label-primary" data-toggle="modal" data-target="#edit_product_Modal" >Sửa</button></td>
                     <td class="client-status"><button onclick="id_product_extra(${v.id})" class="label label-primary" data-toggle="modal" data-target="#add_product_extra_Modal" >Thêm món kèm</button></td>
                     </tr>
                     `;
@@ -344,5 +407,24 @@ $(document).ready(function() {
 
             }
         });
-    })
+    });
+    $('#edit_product_form').on('submit', function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: "../admin/product-product-update",
+            method: "POST",
+            data: new FormData(this),
+            dataType: 'JSON',
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+                if (data.status == 200) {
+                    alert(data.message)
+                    show_product();
+                    $('#close_modol_edit').click();
+                }
+            }
+        })
+    });
 });

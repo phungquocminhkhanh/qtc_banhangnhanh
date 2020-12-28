@@ -115,7 +115,7 @@ class product_categoryController extends Controller
                 $new_name = rand() . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('images'), $new_name);
                 $url='images/'.$new_name;
-                //product_category::where('id',$id)->update(["category_icon"=>$url,"category_title"=>$request->category_title]);
+                product_category::where('id',$request->id_category)->update(["category_icon"=>$url,"category_title"=>$request->category_title]);
                 return response()->json([
                     'status'=>200,
                  'message'   => 'Cập nhật thành công',
@@ -132,6 +132,7 @@ class product_categoryController extends Controller
         else
         {
             // product_category::where('id',$id)->update(["category_title"=>$request->category_title]);
+            product_category::where('id',$request->id_category)->update(["category_title"=>$request->category_title]);
                 return response()->json([
                     'status'=>200,
                      'message'=>'Cập nhật thành công ko file hình',

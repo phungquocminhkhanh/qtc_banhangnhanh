@@ -171,6 +171,7 @@ class product_productController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
@@ -214,7 +215,73 @@ class product_productController extends Controller
      */
     public function show($id)
     {
-        //
+        $product=DB::table('tbl_product_product')
+        ->where('id_business',Auth::user()->id_business)
+        ->where('id',$id)
+        ->get();
+        $unit=DB::table('tbl_product_unit')->where('id_business',Auth::user()->id_business)->get();
+        $category=DB::table('tbl_product_category')->where('id_business',Auth::user()->id_business)->get();
+        return response()->json([
+            "status"=>200,
+            "product"=>$product,
+            "unit"=>$unit,
+            "category"=>$category
+        ]);
+    }
+    public function product_update(Request $request)
+    {
+        if($request->check_upload_image==1)
+        {
+            $validation = Validator::make($request->all(), [
+                'select_file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+               ]);
+               if($validation->passes())
+               {
+                $image = $request->file('select_file');
+                $new_name = rand() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images'), $new_name);
+                $url='images/'.$new_name;
+                product_product::where('id',$request->id_product)
+                ->update(["id_category"=>$request->id_category,
+                "id_unit"=>$request->id_unit,
+                "product_img"=>$url,
+                "product_title"=>$request->product_title,
+                "product_code"=>$request->product_code,
+                "product_sales_price"=>$request->product_sales_price,
+                "product_description"=>$request->product_description,
+                "product_point"=>$request->product_point,
+                ]);
+                return response()->json([
+                    'status'=>200,
+                 'message'   => 'Cập nhật thành công',
+                ]);
+               }
+               else
+               {
+                return response()->json([
+                    'status'=>200,
+                     'message'=>'Cập nhật thất bại',
+                ]);
+               }
+        }
+        else
+        {
+            // product_category::where('id',$id)->update(["category_title"=>$request->category_title]);
+                product_product::where('id',$request->id_product)
+                ->update(["id_category"=>$request->id_category,
+                "id_unit"=>$request->id_unit,
+                "product_title"=>$request->product_title,
+                "product_code"=>$request->product_code,
+                "product_sales_price"=>$request->product_sales_price,
+                "product_description"=>$request->product_description,
+                "product_point"=>$request->product_point,
+                ]);
+                return response()->json([
+                    'status'=>200,
+                     'message'=>'Cập nhật thành công ko file hình',
+                ]);
+        }
+
     }
 
     /**

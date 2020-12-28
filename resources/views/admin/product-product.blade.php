@@ -73,6 +73,7 @@
          </div>
 
     </div>
+
     <meta name="csrf-token-disable-product" content="{{ csrf_token() }}" />
     <meta name="csrf-token-delete-extra" content="{{ csrf_token() }}" />
     <meta name="csrf-token-product-detail" content="{{ csrf_token() }}" />
@@ -91,7 +92,7 @@
            <form id="insert_product_form" enctype="multipart/form-data">
             {{ csrf_field() }}
 
-            <label>Tên danh mục</label>
+            <label>Tên sản phẩm</label>
             <input type="text" name="product_title" id="product_title" class="form-control" />
             <br/>
             <label>Danh mục</label>
@@ -139,6 +140,77 @@
          </div>
         </div>
        </div>
+
+
+
+
+       <div id="edit_product_Modal" class="modal fade">
+        <div class="modal-dialog">
+         <div class="modal-content">
+          <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+           <h4 class="modal-title">Sửa sản phẩm</h4>
+          </div>
+          <div class="modal-body">
+
+           <form id="edit_product_form" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <input type="hidden" value="0" name="check_upload_image" id="check_upload_image">
+            <input type="hidden" value="" id="id_product" name="id_product">
+            <label>Tên sản phẩm</label>
+            <input type="text" name="product_title" id="eproduct_title" class="form-control" />
+            <br/>
+            <label>Danh mục</label>
+            <select name="id_category" id="eid_category">
+                <option value=""></option>
+            </select>
+            <br/>
+            <br/>
+            <label>Giá</label>
+            <input type="number" name="product_sales_price" id="eproduct_sales_price" class="form-control" />
+
+            <br/>
+            <label>Mô tả</label>
+            <textarea name="product_description" id="eproduct_description" class="form-control"></textarea>
+            <br/>
+            <br/>
+            <label>Code</label>
+            <input type="text" name="product_code" id="eproduct_code" class="form-control" />
+
+            <br/>
+            <label>Đơn vị tính</label>
+            <select name="id_unit" id="eid_unit">
+
+            </select>
+
+            <br/>
+
+            <br/>
+            <label>Điểm tích lủy</label>
+            <input type="text" name="product_point" id="eproduct_point" class="form-control" />
+            <br/>
+            <label><label>Hình ảnh</label>
+                <input type="file" id="eproduct_img" onChange="return fileValidation2()" name="select_file" class="form-control" multiple="multiple"  placeholder="Hình ảnh">
+            </label>
+            <br/>
+            <span id="eupload_ed_image"></span>
+            <br/>
+            <br/>
+            <input type="submit" name="insert" id="edit_product" value="Cập nhật" class="btn btn-success" />
+           </form>
+          </div>
+          <div class="modal-footer">
+           <button type="button" id="close_modol_edit" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+         </div>
+        </div>
+       </div>
+
+
+
+
+
+
 
 
        <div id="add_product_extra_Modal" class="modal fade">

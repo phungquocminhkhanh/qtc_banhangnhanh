@@ -121,8 +121,8 @@ $(document).ready(function() {
             success: function(data) {
                 if (data.status == 200) {
                     alert(data.message)
-                        //show_category();
-                        //$('#close_modol_edit').click();
+                    show_category();
+                    $('#close_modol_edit').click();
                 }
             }
         })

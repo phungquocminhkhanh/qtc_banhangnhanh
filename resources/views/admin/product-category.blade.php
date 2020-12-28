@@ -25,17 +25,11 @@
             </div>
          </div>
          <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-12">
                <div class="inqbox">
                   <div class="inqbox-content">
                            <span class="text-muted small pull-right">Last modification: <i class="fa fa-clock-o"></i> 2:10 pm - 12.06.2015</span>
                            <h2>Danh mục sản phẩm</h2>
-                           <div class="input-group">
-                              <input type="text" placeholder="Search client " class="input form-control">
-                              <span class="input-group-btn">
-                              <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
-                              </span>
-                           </div>
                            <div class="clients-list">
                               <ul class="nav nav-tabs tab-border-top-danger">
                                  <li class="active"><a data-toggle="tab" href="#tab-category"><i class="fa fa-user"></i>Danh mục sản phẩm</a></li>
@@ -116,7 +110,7 @@
            <form id="edit_category_form">
             {{ csrf_field() }}
             <input type="hidden" value="0" name="check_upload_image" id="check_upload_image">
-            <input type="hidden" value="" id="id_category">
+            <input type="hidden" value="" id="id_category" name="id_category">
             <label>Tên danh mục</label>
             <input type="text" name="category_title" id="ecategory_title" class="form-control" />
             <br/>
